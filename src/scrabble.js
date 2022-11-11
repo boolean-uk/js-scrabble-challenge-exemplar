@@ -22,7 +22,7 @@ const scrabble = (str) => {
   str = (str || '').toUpperCase()
 
   if (str.length === 0) return 0
-  if (!!str.match(/[^\w{}\[\]]/g)) return 0
+  if ((/[^\w{}\[\]]/g).test(str)) return 0
 
   const chars = str.split('')
   const multipliers = []
@@ -33,21 +33,20 @@ const scrabble = (str) => {
   for (let i=0; i<chars.length; i++) {
     const char = chars[i]
 
-    if (Object.keys(multiplierTokens).includes(char) && chars[i+2] !== multiplierTokens[char]) {
-      wordMultiplier *= multiplierValues[char]
-      multipliers.push(char)
-      continue
-    } else if (Object.keys(multiplierTokens).includes(char) && chars[i+2] === multiplierTokens[char]) {
-      letterMultiplier *= multiplierValues[char]
-      multipliers.push(char)
-      continue
-    }
+    if (Object.keys(multiplierTokens).includes(char)) {
+      if (chars[i+2] !== multiplierTokens[char]) {
+        wordMultiplier *= multiplierValues[char]
+      } else {
+        letterMultiplier *= multiplierValues[char]
+      }
 
-    if (Object.values(multiplierTokens).includes(char)) {
       multipliers.push(char)
+      continue
+    } else if (Object.values(multiplierTokens).includes(char)) {
       if (chars[i-2] === Object.keys(multiplierTokens).find(open => multiplierTokens[open] === char)) {
         letterMultiplier = 1
       }
+      multipliers.push(char)
       continue
     }
 
