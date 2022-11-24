@@ -1,28 +1,13 @@
-const points = {
-  1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
-  2: ['D', 'G'],
-  3: ['B', 'C', 'M', 'P'],
-  4: ['F', 'H', 'V', 'W', 'Y'],
-  5: ['K'],
-  8: ['J', 'X'],
-  10: ['Q', 'Z']
-}
+const { findPtsFor } = require('./findPtsForLetter')
+const { multiplierTokens, multiplierValues } = require('./multiplierData')
 
-const multiplierTokens = {
-  '{': '}',
-  '[': ']'
-}
-
-const multiplierValues = {
-  '{': 2,
-  '[': 3
-}
+const isNotValid = (str) =>
+  str.length === 0 ||
+  /[^\w{}\[\]]/g.test(str) /* eslint-disable-line no-useless-escape */
 
 const scrabble = (str) => {
   str = (str || '').toUpperCase()
-
-  if (str.length === 0) return 0
-  if ((/[^\w{}\[\]]/g).test(str)) return 0
+  if (isNotValid(str)) return 0
 
   const chars = str.split('')
   const multipliers = []
@@ -30,20 +15,24 @@ const scrabble = (str) => {
   let letterMultiplier = 1
   let score = 0
 
-  for (let i=0; i<chars.length; i++) {
+  for (let i = 0; i < chars.length; i++) {
     const char = chars[i]
 
     if (Object.keys(multiplierTokens).includes(char)) {
-      if (chars[i+2] !== multiplierTokens[char]) {
+      if (chars[i + 2] !== multiplierTokens[char]) {
         wordMultiplier *= multiplierValues[char]
       } else {
         letterMultiplier *= multiplierValues[char]
       }
-
       multipliers.push(char)
       continue
     } else if (Object.values(multiplierTokens).includes(char)) {
-      if (chars[i-2] === Object.keys(multiplierTokens).find(open => multiplierTokens[open] === char)) {
+      if (
+        chars[i - 2] ===
+        Object.keys(multiplierTokens).find(
+          (open) => multiplierTokens[open] === char
+        )
+      ) {
         letterMultiplier = 1
       }
       multipliers.push(char)
@@ -56,10 +45,6 @@ const scrabble = (str) => {
   if (multipliers.length % 2 !== 0) return 0
 
   return score * wordMultiplier
-}
-
-const findPtsFor = (char) => {
-  return Number(Object.keys(points).find(key => points[key].includes(char)))
 }
 
 module.exports = scrabble
