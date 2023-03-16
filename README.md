@@ -84,11 +84,15 @@ scrabble('OXYPHENBUTAZONE') // should return 41
 
 For some of the extended criteria, you may need to look up functions and techniques you have not used before.
 
+You need to complete both of these features to pass the Extended Acceptance Criteria.
+
+There are tests for both of these features -- you can run these using in terminal: `npm run test-extensions`. The spec file is located in `spec/extensions/scrabble.spec.js`.
+
 ### Double and Triple Letter
-Your solution should support the ability to define specific letters as double and triple score. Letters that count as double are enclosed in a pair of curly brackets `{}` - for example, the letter `o` would be defined as a double letter in in the word dog like this: `d{o}g`. Triple letters are enclosed in a set of square brackets - for example: `d[o]g`. Your solution should detect these brackets and apply the correct score modifications. You should add tests for this functionality to the spec file.
+Your solution should support the ability to define specific letters as double and triple score. Letters that count as double are enclosed in a pair of curly brackets `{}` - for example, the letter `o` would be defined as a double letter in in the word dog like this: `d{o}g`. Triple letters are enclosed in a set of square brackets - for example: `d[o]g`. Your solution should detect these brackets and apply the correct score modifications.
 
 ### Double or Triple Word
-Similar to above, your solution should support the ability to define double and triple word scores. To indicate a double word score, the submitted word will be enclose in a pair of curly brackets (for example `{dog}`), and for triple word score a pair of square brackets (`[dog]`). Your solution should detect these brackets and apply the correct score modifications. You should add tests for this functionality to the spec file.
+Similar to above, your solution should support the ability to define double and triple word scores. To indicate a double word score, the submitted word will be enclose in a pair of curly brackets (for example `{dog}`), and for triple word score a pair of square brackets (`[dog]`). Your solution should detect these brackets and apply the correct score modifications.
 
 ### Concise Code
 Split up your `scrabble` function in to multiple smaller functions that do one thing only. Read this [article on Clean Functions](https://github.com/ryanmcdermott/clean-code-javascript#functions) and apply the principles you think are relevant.
