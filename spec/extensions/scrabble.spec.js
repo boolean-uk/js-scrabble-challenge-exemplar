@@ -8,7 +8,7 @@ describe("Scrabble", () => {
       expect(scrabble('d{o}g')).toEqual(6)
     })
 
-    it('returns 6 for double letter o', () => {
+    it('returns 6 for triple letter o', () => {
       expect(scrabble('d[o]g')).toEqual(7)
     })
 
@@ -26,7 +26,7 @@ describe("Scrabble", () => {
       expect(scrabble('{dog}')).toEqual(10)
     })
 
-    it('returns 15 for double letter o', () => {
+    it('returns 15 for triple letter o', () => {
       expect(scrabble('[dog]')).toEqual(15)
     })
 
